@@ -1,0 +1,1 @@
+﻿dotnet ef dbcontext scaffold "Server=localhost;Database=eticaret_core;persist security info=True;user id=sa;password=yasga2719;MultipleActiveResultSets=True;" Microsoft.EntityFrameworkCore.SqlServer --force --output-dir .\Models
