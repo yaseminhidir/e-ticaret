@@ -26,7 +26,7 @@
           <ul class="multi-column-dropdown">
             <li>
               <h5 class="mt-0 text-left">{{ cartItem.product.name }}</h5>
-              <p class="text-left">{{ cartItem.product.description }}</p>
+              <p class="text-left" v-html="cartItem.product.description"></p>
              
               <table class="table table-responsive" style="width:3px">
                 <thead>

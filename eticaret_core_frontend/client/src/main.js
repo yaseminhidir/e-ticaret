@@ -13,7 +13,7 @@ if(window.location.href.indexOf("//localhost")!=-1){
 window.apiUrl="https://localhost:44304/";
 }
 else{
-  window.apiUrl="http://eticaretapi.ya seminhidir.com/"
+  window.apiUrl="http://eticaretapi.yaseminhidir.com/"
 }
 new Vue({
   router,

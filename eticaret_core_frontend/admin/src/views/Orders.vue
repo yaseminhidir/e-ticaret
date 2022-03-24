@@ -1,11 +1,32 @@
 <template>
   <div>
+    <div class="row justify-content-end">
+      <md-button class="md-icon-button md-raised" @click="DownloadOrders">
+        <md-icon>file_download</md-icon>
+      </md-button>
+    </div>
+    <div class="md-layout">
+      <div class="md-layout-item"></div>
+      <div class="md-layout-item">
+        <md-field>
+          <label>Select File</label>
+          <md-file multiple accept="image/*" ref="fileInput" />
+        </md-field>
+      </div>
+      <div class="md-layout-item">
+        <md-button
+          class="md-icon-button md-raised"
+          @click="UploadOrderStatuExcel"
+        >
+          <md-icon>file_upload</md-icon>
+        </md-button>
+      </div>
+    </div>
     <md-table>
       <md-table-toolbar>
         <div class="md-toolbar-section-start">
           <h5>Orders</h5>
         </div>
-
         <md-field md-clearable class="md-toolbar-section-end">
           <md-input placeholder="Search by name..." v-model="search" />
         </md-field>
@@ -15,7 +36,7 @@
         <md-table-head md-numeric>ID</md-table-head>
 
         <md-table-head>Customer Name</md-table-head>
-           <md-table-head>Address Name</md-table-head>
+        <md-table-head>Address Name</md-table-head>
         <md-table-head>Date</md-table-head>
         <md-table-head>Status</md-table-head>
         <md-table-head>Product Quantity</md-table-head>
@@ -28,7 +49,7 @@
           >{{ order.customer.firstName }}
           {{ order.customer.lastName }}</md-table-cell
         >
-              <md-table-cell>{{ order.address.name }}</md-table-cell>
+        <md-table-cell>{{ order.address.name }}</md-table-cell>
         <md-table-cell>{{ order.date }}</md-table-cell>
         <md-table-cell>{{ order.orderStatu.name }}</md-table-cell>
         <md-table-cell>{{ totalQuantity(order) }}</md-table-cell>
@@ -74,6 +95,21 @@ export default {
         toplam = toplam + product.quantity;
       }
       return toplam;
+    },
+    async DownloadOrders() {
+      window.open(window.apiUrl + "AdminOrder/GetOrdersExcel");
+    },
+    async UploadOrderStatuExcel() {
+      var formData = new FormData();
+      console.log(this);
+     formData.append("file", this.$refs.fileInput.$refs.inputFile.files[0] );
+      console.log(formData);
+      var resultExcel = await axios.post(
+        window.apiUrl + "AdminOrder/UploadOrderStatuExcel",
+        formData
+      );
+      console.log(resultExcel);
+      this.load();
     },
   },
   computed: {
